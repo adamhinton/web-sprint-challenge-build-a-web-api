@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { validateProjectId } = require("./projects-middleware");
+
 // const {
 //   get,
 //   insert,
@@ -23,16 +25,17 @@ router.get("/", async (req, res) => {
     });
 });
 
-router.get("/:id", async (req, res) => {
-  await Project.get(req.params.id)
-    .then((project) => {
-      project
-        ? res.json(project)
-        : res.status(404).json({ message: "you messed it up!" });
-    })
-    .catch((err) => {
-      res.status(404).json({ message: "the user with this id does not exist" });
-    });
+router.get("/:id", validateProjectId, async (req, res) => {
+  const project = await Project.get(req.params.id);
+  res.json(project);
+  //     .then((project) => {
+  //       project
+  //         ? res.json(project)
+  //         : res.status(404).json({ message: "you messed it up!" });
+  //     })
+  //     .catch((err) => {
+  //       res.status(404).json({ message: "the user with this id does not exist" });
+  //     });
 });
 
 module.exports = router;
