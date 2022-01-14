@@ -30,4 +30,8 @@ router.post("/", validateAction, async (req, res, next) => {
     });
 });
 
+router.put("/:id", validateActionId, validateAction, (req, res) => {
+  console.log("putting...");
+});
+
 module.exports = router;
