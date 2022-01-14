@@ -2,7 +2,6 @@
 const Project = require("./projects-model");
 
 async function validateProjectId(req, res, next) {
-  console.log(req.params.id);
   try {
     const project = await Project.get(req.params.id);
     if (!project) {

@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
       res.status(200).json(projects);
     })
     .catch((err) => {
-      console.log(err);
       res.status(404).json({ message: "blah blah blah error" });
     });
 });
@@ -30,7 +29,6 @@ router.post("/", validateProject, (req, res) => {
 });
 
 router.put("/:id", validateProjectId, validateProject, async (req, res) => {
-  console.log(req.params.id);
   //   const projectInfo = req.body;
   await Project.update(req.params.id, req.body)
     .then(() => {
@@ -39,21 +37,9 @@ router.put("/:id", validateProjectId, validateProject, async (req, res) => {
     .then((project) => {
       res.json(project);
     });
-
-  //     .then((project) => {
-  //       res.json(project);
-  //     })
-  //     // .then((project) => {
-  //     //   res.json(project);
-  //     // })
-  //     .catch((err) => {
-  //       console.log("bjidofasjfi");
-  //     });
-  //   //   res.json(updatedProject);
 });
 
 router.delete("/:id", validateProjectId, async (req, res, next) => {
-  console.log(req.params.id);
   try {
     await Project.remove(req.params.id);
     res.json("removed");
@@ -63,7 +49,6 @@ router.delete("/:id", validateProjectId, async (req, res, next) => {
 });
 
 router.get("/:id/actions", validateProjectId, async (req, res, next) => {
-  console.log("ID:", req.params.id);
   try {
     const result = await Project.getProjectActions(req.params.id);
     res.json(result);
