@@ -3,9 +3,18 @@ const Action = require("./actions-model");
 
 async function validateActionId(req, res, next) {
   try {
-    console.log("validating");
+    const action = await Action.get(req.params.id);
+    if (!action) {
+      res.status(404).json({ message: "action not found" });
+    } else {
+      console.log("action validated");
+      req.action = action;
+      next();
+    }
   } catch (err) {
-    console.log("validating error");
+    res.status(404).json({
+      message: "problem finding action",
+    });
   }
 }
 
