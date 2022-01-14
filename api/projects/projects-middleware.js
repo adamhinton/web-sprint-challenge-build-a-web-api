@@ -19,7 +19,11 @@ async function validateProjectId(req, res, next) {
 }
 
 function validateProject(req, res, next) {
-  if (!req.body.name || !req.body.description || !req.body.completed) {
+  if (
+    !req.body.name ||
+    !req.body.description ||
+    typeof req.body.completed === "undefined"
+  ) {
     next(res.status(400).json({ message: "put in a body, you dummy!" }));
   } else {
     next();
