@@ -1,4 +1,4 @@
-// Write your "projects" router here!
+// call validateProjectId anywhere with an :id
 const express = require("express");
 const router = express.Router();
 
@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
     });
 });
 
+// validateProjectId does most of the work here
 router.get("/:id", validateProjectId, async (req, res) => {
   const project = await Project.get(req.params.id);
   res.json(project);
