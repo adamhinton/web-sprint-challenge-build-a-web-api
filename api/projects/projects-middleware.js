@@ -18,6 +18,26 @@ async function validateProjectId(req, res, next) {
   }
 }
 
+function validateProject(req, res, next) {
+  // if the client doest not supply a name for the new hub
+  // we want to respond with a 422 unprocessable entity
+  // otherwise proceed to next middleware
+  if (
+    !req.body.name ||
+    !req.body.description ||
+    !req.body.completed ||
+    req.body.actions
+  ) {
+    next({
+      status: 400,
+      message: "Need name, description, completed and actions",
+    });
+  } else {
+    next();
+  }
+}
+
 module.exports = {
   validateProjectId,
+  validateProject,
 };

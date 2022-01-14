@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateProjectId } = require("./projects-middleware");
+const { validateProjectId, validateProject } = require("./projects-middleware");
 
 const Project = require("./projects-model");
 
@@ -21,6 +21,11 @@ router.get("/", async (req, res) => {
 router.get("/:id", validateProjectId, async (req, res) => {
   const project = await Project.get(req.params.id);
   res.json(project);
+});
+
+//need name, description, completed(false) and actions ([])
+router.post("/", validateProject, (req, res) => {
+  console.log("fdjsiaofsdaji");
 });
 
 module.exports = router;
