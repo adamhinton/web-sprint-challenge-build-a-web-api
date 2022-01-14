@@ -1,4 +1,5 @@
 const express = require("express");
+const { validateActionId } = require("./actions-middlware");
 const router = express.Router();
 
 const Action = require("./actions-model");
@@ -13,7 +14,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validateActionId, (req, res, next) => {
   console.log("getting action id");
 });
 
