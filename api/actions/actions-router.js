@@ -19,7 +19,7 @@ router.get("/:id", validateActionId, async (req, res, next) => {
   res.json(action);
 });
 
-//this isn't quite right, passes codegrade tests but returns an error when I call it in postman
+// This doesn't catch if an id isn't valid, just returns an error. Will work on that later if I have time.
 router.post("/", validateAction, async (req, res, next) => {
   await Action.insert(req.body)
     .then((action) => {
