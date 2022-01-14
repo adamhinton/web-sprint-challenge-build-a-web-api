@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", validateActionId, async (req, res, next) => {
-  console.log("getting action id");
   const action = await Action.get(req.params.id);
   res.json(action);
 });
