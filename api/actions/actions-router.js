@@ -19,8 +19,15 @@ router.get("/:id", validateActionId, async (req, res, next) => {
   res.json(action);
 });
 
-router.post("/", validateAction, (req, res) => {
-  console.log("posting...");
+//this isn't quite right, passes codegrade tests but returns an error when I call it in postman
+router.post("/", validateAction, async (req, res, next) => {
+  await Action.insert(req.body)
+    .then((action) => {
+      res.status(201).json(action);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 module.exports = router;

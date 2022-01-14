@@ -19,7 +19,17 @@ async function validateActionId(req, res, next) {
 }
 
 function validateAction(req, res, next) {
-  console.log("validating action...");
+  //   console.log(req.body.notes, req.body.description, req.body.project_id);
+  const { notes, description, project_id } = req.body;
+  if (!notes || !description || !project_id) {
+    next(
+      res.status(400).json({
+        message: "put in an action body, you dummy!",
+      })
+    );
+  } else {
+    next();
+  }
 }
 
 module.exports = {
