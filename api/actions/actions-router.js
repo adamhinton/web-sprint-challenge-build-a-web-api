@@ -1,4 +1,5 @@
 const express = require("express");
+// These middlewares make sure that an id actually exists, and that an action has a valid body.
 const { validateActionId, validateAction } = require("./actions-middlware");
 const router = express.Router();
 
@@ -44,7 +45,6 @@ router.put("/:id", validateActionId, validateAction, async (req, res) => {
 });
 
 router.delete("/:id", validateActionId, async (req, res, next) => {
-  // console.log("deleting");
   try {
     await Action.remove(req.params.id);
     res.json("removed");
@@ -52,9 +52,5 @@ router.delete("/:id", validateActionId, async (req, res, next) => {
     next(err);
   }
 });
-
-// - [ ] `[DELETE] /api/actions/:id`
-//   - Returns no response body.
-//   - If there is no action with the given `id` it responds with a status code 404.
 
 module.exports = router;

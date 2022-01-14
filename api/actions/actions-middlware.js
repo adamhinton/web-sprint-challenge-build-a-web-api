@@ -1,4 +1,3 @@
-// add middlewares here related to actions
 const Action = require("./actions-model");
 
 async function validateActionId(req, res, next) {
@@ -7,7 +6,6 @@ async function validateActionId(req, res, next) {
     if (!action) {
       res.status(404).json({ message: "action not found" });
     } else {
-      console.log("action validated");
       req.action = action;
       next();
     }
