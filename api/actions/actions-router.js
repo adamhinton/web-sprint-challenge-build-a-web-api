@@ -30,8 +30,17 @@ router.post("/", validateAction, async (req, res, next) => {
     });
 });
 
-router.put("/:id", validateActionId, validateAction, (req, res) => {
-  console.log("putting...");
+router.put("/:id", validateActionId, validateAction, async (req, res) => {
+  await Action.update(req.params.id, req.body)
+    .then(() => {
+      return Action.get(req.params.id);
+    })
+    .then((action) => {
+      res.json(action);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;
