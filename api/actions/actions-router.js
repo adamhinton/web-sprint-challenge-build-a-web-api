@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateActionId } = require("./actions-middlware");
+const { validateActionId, validateAction } = require("./actions-middlware");
 const router = express.Router();
 
 const Action = require("./actions-model");
@@ -19,7 +19,7 @@ router.get("/:id", validateActionId, async (req, res, next) => {
   res.json(action);
 });
 
-router.post("/", (req, res) => {
+router.post("/", validateAction, (req, res) => {
   console.log("posting...");
 });
 
@@ -29,3 +29,9 @@ module.exports = router;
 //   - Returns the newly created action as the body of the response.
 //   - If the request body is missing any of the required fields it responds with a status code 400.
 //   - When adding an action make sure the `project_id` provided belongs to an existing `project`.
+
+// router.post("/", validateProject, (req, res) => {
+//   const projectInfo = req.body;
+//   Project.insert(projectInfo);
+//   res.json(projectInfo);
+// });

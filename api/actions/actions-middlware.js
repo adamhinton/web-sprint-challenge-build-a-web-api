@@ -18,6 +18,11 @@ async function validateActionId(req, res, next) {
   }
 }
 
+function validateAction(req, res, next) {
+  console.log("validating action...");
+}
+
 module.exports = {
   validateActionId,
+  validateAction,
 };
