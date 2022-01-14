@@ -13,6 +13,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get();
+router.get("/:id", (req, res) => {
+  console.log("getting action id");
+});
 
 module.exports = router;
