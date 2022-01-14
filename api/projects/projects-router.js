@@ -52,11 +52,21 @@ router.put("/:id", validateProjectId, validateProject, async (req, res) => {
   //   //   res.json(updatedProject);
 });
 
-router.delete("/:id", validateProjectId, async (req, res) => {
+router.delete("/:id", validateProjectId, async (req, res, next) => {
   console.log(req.params.id);
   try {
     await Project.remove(req.params.id);
     res.json("removed");
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:id/actions", validateProjectId, async (req, res, next) => {
+  console.log("ID:", req.params.id);
+  try {
+    const result = await Project.getProjectActions(req.params.id);
+    res.json(result);
   } catch (err) {
     next(err);
   }
