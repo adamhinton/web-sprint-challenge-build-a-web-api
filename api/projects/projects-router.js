@@ -23,9 +23,10 @@ router.get("/:id", validateProjectId, async (req, res) => {
   res.json(project);
 });
 
-//need name, description, completed(false) and actions ([])
 router.post("/", validateProject, (req, res) => {
-  console.log("fdjsiaofsdaji");
+  const projectInfo = req.body;
+  Project.insert(projectInfo);
+  res.json(projectInfo);
 });
 
 module.exports = router;
