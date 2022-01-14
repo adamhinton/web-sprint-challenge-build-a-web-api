@@ -19,8 +19,6 @@ async function validateActionId(req, res, next) {
 }
 
 function validateAction(req, res, next) {
-  console.log(req.params);
-  console.log(req.body.notes, req.body.description, req.body.project_id);
   const { notes, description, project_id } = req.body;
   if (!notes || !description || !project_id) {
     next(
