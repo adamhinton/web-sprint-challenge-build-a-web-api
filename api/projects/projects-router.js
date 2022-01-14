@@ -24,11 +24,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("id:", req.params.id);
   await Project.get(req.params.id)
     .then((project) => {
-      console.log("One project:", project);
-      res.json(project);
+      project
+        ? res.json(project)
+        : res.status(404).json({ message: "you messed it up!" });
     })
     .catch((err) => {
       res.status(404).json({ message: "the user with this id does not exist" });
