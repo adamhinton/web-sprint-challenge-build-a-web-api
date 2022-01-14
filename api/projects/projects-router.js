@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
   console.log("id:", req.params.id);
   await Project.get(req.params.id)
     .then((project) => {
-      console.log(project);
+      console.log("One project:", project);
       res.json(project);
     })
     .catch((err) => {
