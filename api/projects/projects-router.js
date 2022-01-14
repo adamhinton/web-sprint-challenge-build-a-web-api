@@ -1,18 +1,38 @@
 // Write your "projects" router here!
 const express = require("express");
-const Project = require("./projects-model");
 const router = express.Router();
 
-router.get("/", (req, res) => {
+// const {
+//   get,
+//   insert,
+//   update,
+//   remove,
+//   getProjectActions,
+// } = require("./projects-model");
+
+const Project = require("./projects-model");
+
+router.get("/", async (req, res) => {
   Project.get()
     .then((projects) => {
       res.status(200).json(projects);
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "blah blah blah error" });
+      res.status(404).json({ message: "blah blah blah error" });
     });
-  //   console.log(Project.get(1));
+});
+
+router.get("/:id", async (req, res) => {
+  console.log("id:", req.params.id);
+  await Project.get(req.params.id)
+    .then((project) => {
+      console.log(project);
+      res.json(project);
+    })
+    .catch((err) => {
+      res.status(404).json({ message: "the user with this id does not exist" });
+    });
 });
 
 module.exports = router;
