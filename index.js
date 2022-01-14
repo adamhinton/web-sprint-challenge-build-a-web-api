@@ -13,5 +13,16 @@ I need this code, but don't know where, perhaps should make some middleware, don
 Pull your server into this file and start it!
 */
 
-const express = require("express");
-// const cors = require("cors");
+const server = require("./api/server");
+require("dotenv").config();
+const PORT = process.env.PORT || 9000;
+
+// server.use("*", (req, res) => {
+//   res.send(`<h1>Hello World!A</h1>`);
+// });
+
+server.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
+});
+
+module.exports = server;
