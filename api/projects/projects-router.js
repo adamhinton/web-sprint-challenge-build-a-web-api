@@ -29,4 +29,6 @@ router.post("/", validateProject, (req, res) => {
   res.json(projectInfo);
 });
 
+router.put("/:id", validateProjectId, validateProject, (req, res) => {});
+
 module.exports = router;
