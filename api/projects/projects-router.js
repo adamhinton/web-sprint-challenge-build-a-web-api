@@ -29,6 +29,27 @@ router.post("/", validateProject, (req, res) => {
   res.json(projectInfo);
 });
 
-router.put("/:id", validateProjectId, validateProject, (req, res) => {});
+router.put("/:id", validateProjectId, validateProject, async (req, res) => {
+  console.log(req.params.id);
+  //   const projectInfo = req.body;
+  await Project.update(req.params.id, req.body)
+    .then(() => {
+      return Project.get(req.params.id);
+    })
+    .then((project) => {
+      res.json(project);
+    });
+
+  //     .then((project) => {
+  //       res.json(project);
+  //     })
+  //     // .then((project) => {
+  //     //   res.json(project);
+  //     // })
+  //     .catch((err) => {
+  //       console.log("bjidofasjfi");
+  //     });
+  //   //   res.json(updatedProject);
+});
 
 module.exports = router;
